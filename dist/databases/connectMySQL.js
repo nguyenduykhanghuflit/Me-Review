@@ -5,7 +5,7 @@ const tslib_1 = require("tslib");
 const sequelize_1 = tslib_1.__importDefault(require("sequelize"));
 const _config_1 = require("../config");
 const users_model_1 = tslib_1.__importDefault(require("../models/users.model"));
-const logger_1 = require("../utils/logger");
+// import { logger } from '../utils/logger';
 const telegramLogger_1 = require("../utils/telegramLogger");
 const sequelize = new sequelize_1.default.Sequelize(_config_1.DB_DATABASE, _config_1.DB_USER, _config_1.DB_PASSWORD, {
     dialect: 'mysql',
@@ -33,7 +33,7 @@ const sequelize = new sequelize_1.default.Sequelize(_config_1.DB_DATABASE, _conf
 const connectMySQL = async () => {
     try {
         await sequelize.authenticate();
-        logger_1.logger.info(`✅✅✅✅✅✅✅✅ Connect database success✅✅✅✅✅✅✅✅`);
+        //  logger.info(`✅✅✅✅✅✅✅✅ Connect database success✅✅✅✅✅✅✅✅`);
         telegramLogger_1.telegramLogger.sendMessage('✅✅✅✅ Connect database success ✅✅✅✅', 'NOTICE');
     }
     catch (error) {

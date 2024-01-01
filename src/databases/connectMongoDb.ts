@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { logger } from '@utils/logger';
+// import { logger } from '@utils/logger';
 import { telegramLogger } from '@utils/telegramLogger';
 import { MONGODB_URI } from '@config';
 
@@ -10,9 +10,9 @@ const connectMongoDb = () => {
          dbName: 'me_review',
       })
       .then(() => {
-         logger.info(
-            `✅✅✅✅✅✅✅✅ Connect MongoDB success✅✅✅✅✅✅✅✅`
-         );
+         // logger.info(
+         //    `✅✅✅✅✅✅✅✅ Connect MongoDB success✅✅✅✅✅✅✅✅`
+         // );
          telegramLogger.sendMessage(
             '✅✅✅✅ Connect MongoDB success ✅✅✅✅',
             'NOTICE'

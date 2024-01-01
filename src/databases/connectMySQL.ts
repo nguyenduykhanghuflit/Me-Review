@@ -8,7 +8,7 @@ import {
    DB_DATABASE,
 } from '@config';
 import UserModel from '@models/users.model';
-import { logger } from '@utils/logger';
+// import { logger } from '@utils/logger';
 import { telegramLogger } from '@utils/telegramLogger';
 const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
    dialect: 'mysql',
@@ -37,7 +37,7 @@ const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
 export const connectMySQL = async () => {
    try {
       await sequelize.authenticate();
-      logger.info(`✅✅✅✅✅✅✅✅ Connect database success✅✅✅✅✅✅✅✅`);
+      //  logger.info(`✅✅✅✅✅✅✅✅ Connect database success✅✅✅✅✅✅✅✅`);
       telegramLogger.sendMessage(
          '✅✅✅✅ Connect database success ✅✅✅✅',
          'NOTICE'

@@ -13,7 +13,7 @@ import { connectMySQL } from '@/databases/connectMySQL';
 import connectMongoDb from '@/databases/connectMongoDb';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
-import { logger, stream } from '@utils/logger';
+// import { stream } from '@utils/logger';
 import { telegramLogger } from '@utils/telegramLogger';
 
 class App {
@@ -36,9 +36,9 @@ class App {
 
    public listen() {
       this.app.listen(this.port, () => {
-         logger.info(
-            `✅✅✅✅✅✅✅✅ App listening on the port ${this.port}✅✅✅✅✅✅✅✅`
-         );
+         // logger.info(
+         //    `✅✅✅✅✅✅✅✅ App listening on the port ${this.port}✅✅✅✅✅✅✅✅`
+         // );
 
          telegramLogger.sendMessage(
             `✅✅✅✅ App listening on the port ${this.port} ✅✅✅✅`,
@@ -60,7 +60,7 @@ class App {
    }
 
    private initializeMiddlewares() {
-      this.app.use(morgan(LOG_FORMAT, { stream }));
+      //this.app.use(morgan(LOG_FORMAT, { stream }));
       this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
       this.app.use(hpp());
       this.app.use(helmet());

@@ -7,7 +7,6 @@ const cors_1 = tslib_1.__importDefault(require("cors"));
 const express_1 = tslib_1.__importDefault(require("express"));
 const helmet_1 = tslib_1.__importDefault(require("helmet"));
 const hpp_1 = tslib_1.__importDefault(require("hpp"));
-const morgan_1 = tslib_1.__importDefault(require("morgan"));
 const swagger_jsdoc_1 = tslib_1.__importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = tslib_1.__importDefault(require("swagger-ui-express"));
 const _config_1 = require("./config");
@@ -15,7 +14,7 @@ const connectMySQL_1 = tslib_1.__importDefault(require("./databases/connectMySQL
 const connectMySQL_2 = require("./databases/connectMySQL");
 const connectMongoDb_1 = tslib_1.__importDefault(require("./databases/connectMongoDb"));
 const error_middleware_1 = tslib_1.__importDefault(require("./middlewares/error.middleware"));
-const logger_1 = require("./utils/logger");
+// import { stream } from './utils/logger';
 const telegramLogger_1 = require("./utils/telegramLogger");
 class App {
     constructor(routes) {
@@ -31,7 +30,9 @@ class App {
     }
     listen() {
         this.app.listen(this.port, () => {
-            logger_1.logger.info(`✅✅✅✅✅✅✅✅ App listening on the port ${this.port}✅✅✅✅✅✅✅✅`);
+            // logger.info(
+            //    `✅✅✅✅✅✅✅✅ App listening on the port ${this.port}✅✅✅✅✅✅✅✅`
+            // );
             telegramLogger_1.telegramLogger.sendMessage(`✅✅✅✅ App listening on the port ${this.port} ✅✅✅✅`, 'NOTICE');
         });
     }
@@ -46,7 +47,7 @@ class App {
         (0, connectMongoDb_1.default)();
     }
     initializeMiddlewares() {
-        this.app.use((0, morgan_1.default)(_config_1.LOG_FORMAT, { stream: logger_1.stream }));
+        //this.app.use(morgan(LOG_FORMAT, { stream }));
         this.app.use((0, cors_1.default)({ origin: _config_1.ORIGIN, credentials: _config_1.CREDENTIALS }));
         this.app.use((0, hpp_1.default)());
         this.app.use((0, helmet_1.default)());

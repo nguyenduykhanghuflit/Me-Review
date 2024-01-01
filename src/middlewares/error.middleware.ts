@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from '@exceptions/HttpException';
-import { logger } from '@utils/logger';
+// import { logger } from '@utils/logger';
 import { telegramLogger } from '@utils/telegramLogger';
 const errorMiddleware = (
    error: HttpException,
@@ -12,9 +12,9 @@ const errorMiddleware = (
       const status: number = error.status || 500;
       const message: string = error.message || 'Something went wrong';
 
-      logger.error(
-         `❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`
-      );
+      // logger.error(
+      //    `❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`
+      // );
 
       telegramLogger.sendMessage(
          `❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`

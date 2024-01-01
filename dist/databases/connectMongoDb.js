@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
-const logger_1 = require("../utils/logger");
+// import { logger } from '../utils/logger';
 const telegramLogger_1 = require("../utils/telegramLogger");
 const _config_1 = require("../config");
 //connect mongoose
@@ -11,7 +11,9 @@ const connectMongoDb = () => {
         dbName: 'me_review',
     })
         .then(() => {
-        logger_1.logger.info(`✅✅✅✅✅✅✅✅ Connect MongoDB success✅✅✅✅✅✅✅✅`);
+        // logger.info(
+        //    `✅✅✅✅✅✅✅✅ Connect MongoDB success✅✅✅✅✅✅✅✅`
+        // );
         telegramLogger_1.telegramLogger.sendMessage('✅✅✅✅ Connect MongoDB success ✅✅✅✅', 'NOTICE');
     })
         .catch((error) => {
