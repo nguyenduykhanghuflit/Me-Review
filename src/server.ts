@@ -9,6 +9,7 @@ import UploadRoute from './routes/upload.route';
 
 validateEnv();
 
+//tại sao tại tại sao
 const app = new App([
    new IndexRoute(),
    new UsersRoute(),
