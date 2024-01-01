@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Upload Video</title>
+   </head>
+   <body>
+      <h1>Upload Video</h1>
+      <form
+         id="uploadForm"
+         enctype="multipart/form-data">
+         <input
+            type="file"
+            name="video"
+            accept="video/*"
+            required />
+         <button type="submit">Upload</button>
+      </form>
+
+      <div id="message"></div>
+
+      <script>
+         const uploadForm = document.getElementById('uploadForm');
+         const messageDiv = document.getElementById('message');
+
+         uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(uploadForm);
+            const file = formData.get('video');
+
+            try {
+               const response = await fetch(
+                  'http://localhost:8080/api/v1/upload',
+                  {
+                     method: 'POST',
+                     body: formData,
+                  }
+               );
+
+               if (response.ok) {
+                  const data = await response.json();
+                  const videoUrl = data.url;
+                  messageDiv.textContent =
+                     'Video uploaded successfully. URL: ' + videoUrl;
+               } else {
+                  messageDiv.textContent =
+                     'Failed to upload video. Error: ' + response.statusText;
+               }
+            } catch (error) {
+               console.error(error);
+               messageDiv.textContent =
+                  'Failed to upload video. Error: ' + error.message;
+            }
+         });
+      </script>
+      <script src="./dx.all.js"></script>
+   </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Video Streaming</title>
+      <style>
+         video {
+            width: 100%;
+            height: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <video
+         id="videoPlayer"
+         controls
+         autoplay></video>
+
+      <script>
+         var videoPlayer = document.getElementById('videoPlayer');
+
+         // Gửi yêu cầu lấy video từ server
+         fetch('http://localhost:8080/api/v1/stream')
+            .then(function (response) {
+               if (response.ok) {
+                  return response.blob();
+               }
+               throw new Error('Network response was not ok.');
+            })
+            .then(function (blob) {
+               // Tạo URL cho video
+               var videoUrl = URL.createObjectURL(blob);
+
+               // Gán URL cho video player
+               videoPlayer.src = videoUrl;
+            })
+            .catch(function (error) {
+               console.error('Error streaming video:', error);
+            });
+      </script>
+   </body>
+</html>
