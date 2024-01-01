@@ -1,58 +1,60 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const bcrypt_1 = require("bcrypt");
-const connectMySQL_1 = tslib_1.__importDefault(require("../databases/connectMySQL"));
-const HttpException_1 = require("../exceptions/HttpException");
-const util_1 = require("../utils/util");
-class UserService {
-    constructor() {
-        this.users = connectMySQL_1.default.Users;
-    }
-    async findAllUser() {
-        const allUser = await this.users.findAll();
-        return allUser;
-    }
-    async findUserById(userId) {
-        if ((0, util_1.isEmpty)(userId))
-            throw new HttpException_1.HttpException(400, 'UserId is empty');
-        const findUser = await this.users.findByPk(userId);
-        if (!findUser)
-            throw new HttpException_1.HttpException(409, "User doesn't exist");
-        return findUser;
-    }
-    async createUser(userData) {
-        if ((0, util_1.isEmpty)(userData))
-            throw new HttpException_1.HttpException(400, 'userData is empty');
-        const findUser = await this.users.findOne({
-            where: { email: userData.email },
-        });
-        if (findUser)
-            throw new HttpException_1.HttpException(409, `This email ${userData.email} already exists`);
-        const hashedPassword = await (0, bcrypt_1.hash)(userData.password, 10);
-        const createUserData = await this.users.create(Object.assign(Object.assign({}, userData), { password: hashedPassword }));
-        return createUserData;
-    }
-    async updateUser(userId, userData) {
-        if ((0, util_1.isEmpty)(userData))
-            throw new HttpException_1.HttpException(400, 'userData is empty');
-        const findUser = await this.users.findByPk(userId);
-        if (!findUser)
-            throw new HttpException_1.HttpException(409, "User doesn't exist");
-        const hashedPassword = await (0, bcrypt_1.hash)(userData.password, 10);
-        await this.users.update(Object.assign(Object.assign({}, userData), { password: hashedPassword }), { where: { id: userId } });
-        const updateUser = await this.users.findByPk(userId);
-        return updateUser;
-    }
-    async deleteUser(userId) {
-        if ((0, util_1.isEmpty)(userId))
-            throw new HttpException_1.HttpException(400, "User doesn't existId");
-        const findUser = await this.users.findByPk(userId);
-        if (!findUser)
-            throw new HttpException_1.HttpException(409, "User doesn't exist");
-        await this.users.destroy({ where: { id: userId } });
-        return findUser;
-    }
-}
-exports.default = UserService;
+// import { hash } from 'bcrypt';
+// import DB from '../databases/connectMySQL';
+// import { CreateUserDto } from '../dtos/users.dto';
+// import { HttpException } from '../exceptions/HttpException';
+// import { User } from '../interfaces/users.interface';
+// import { isEmpty } from '../utils/util';
+// class UserService {
+//    public users = DB.Users;
+//    public async findAllUser(): Promise<User[]> {
+//       const allUser: User[] = await this.users.findAll();
+//       return allUser;
+//    }
+//    public async findUserById(userId: number): Promise<User> {
+//       if (isEmpty(userId)) throw new HttpException(400, 'UserId is empty');
+//       const findUser: User = await this.users.findByPk(userId);
+//       if (!findUser) throw new HttpException(409, "User doesn't exist");
+//       return findUser;
+//    }
+//    public async createUser(userData: CreateUserDto): Promise<User> {
+//       if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
+//       const findUser: User = await this.users.findOne({
+//          where: { email: userData.email },
+//       });
+//       if (findUser)
+//          throw new HttpException(
+//             409,
+//             `This email ${userData.email} already exists`
+//          );
+//       const hashedPassword = await hash(userData.password, 10);
+//       const createUserData: User = await this.users.create({
+//          ...userData,
+//          password: hashedPassword,
+//       });
+//       return createUserData;
+//    }
+//    public async updateUser(
+//       userId: number,
+//       userData: CreateUserDto
+//    ): Promise<User> {
+//       if (isEmpty(userData)) throw new HttpException(400, 'userData is empty');
+//       const findUser: User = await this.users.findByPk(userId);
+//       if (!findUser) throw new HttpException(409, "User doesn't exist");
+//       const hashedPassword = await hash(userData.password, 10);
+//       await this.users.update(
+//          { ...userData, password: hashedPassword },
+//          { where: { id: userId } }
+//       );
+//       const updateUser: User = await this.users.findByPk(userId);
+//       return updateUser;
+//    }
+//    public async deleteUser(userId: number): Promise<User> {
+//       if (isEmpty(userId)) throw new HttpException(400, "User doesn't existId");
+//       const findUser: User = await this.users.findByPk(userId);
+//       if (!findUser) throw new HttpException(409, "User doesn't exist");
+//       await this.users.destroy({ where: { id: userId } });
+//       return findUser;
+//    }
+// }
+// export default UserService;
 //# sourceMappingURL=users.service.js.map

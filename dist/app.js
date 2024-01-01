@@ -10,8 +10,8 @@ const hpp_1 = tslib_1.__importDefault(require("hpp"));
 const swagger_jsdoc_1 = tslib_1.__importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = tslib_1.__importDefault(require("swagger-ui-express"));
 const _config_1 = require("./config");
-const connectMySQL_1 = tslib_1.__importDefault(require("./databases/connectMySQL"));
-const connectMySQL_2 = require("./databases/connectMySQL");
+// import initMysql from './databases/connectMySQL';
+// import { connectMySQL } from './databases/connectMySQL';
 const connectMongoDb_1 = tslib_1.__importDefault(require("./databases/connectMongoDb"));
 const error_middleware_1 = tslib_1.__importDefault(require("./middlewares/error.middleware"));
 // import { stream } from './utils/logger';
@@ -39,10 +39,10 @@ class App {
     getServer() {
         return this.app;
     }
-    connectToDatabasMySql() {
-        (0, connectMySQL_2.connectMySQL)();
-        connectMySQL_1.default.sequelize.sync({ force: false });
-    }
+    // private connectToDatabasMySql() {
+    //    connectMySQL();
+    //    initMysql.sequelize.sync({ force: false });
+    // }
     connectToMongoDB() {
         (0, connectMongoDb_1.default)();
     }

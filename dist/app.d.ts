@@ -7,7 +7,6 @@ declare class App {
     constructor(routes: Routes[]);
     listen(): void;
     getServer(): express.Application;
-    private connectToDatabasMySql;
     private connectToMongoDB;
     private initializeMiddlewares;
     private initializeRoutes;
