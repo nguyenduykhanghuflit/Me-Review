@@ -10,13 +10,15 @@ class CategoriesController {
                 // const userId = Number(req.params.id);
                 // const userData: CreateUserDto = req.body;
                 const findAllCategory = await this.categoryService.Get();
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: findAllCategory,
                     message: 'Get data success',
                 });
             }
             catch (error) {
-                next(error);
+                return next(error);
             }
         };
         this.createCategory = async (req, res, next) => {
@@ -24,9 +26,11 @@ class CategoriesController {
                 // const userId = Number(req.params.id);
                 const body = req.body;
                 const data = await this.categoryService.Create(body);
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: data,
-                    message: 'Create Success',
+                    message: 'Get data success',
                 });
             }
             catch (error) {

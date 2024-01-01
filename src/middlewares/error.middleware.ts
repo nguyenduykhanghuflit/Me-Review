@@ -9,7 +9,8 @@ const errorMiddleware = (
    next: NextFunction
 ) => {
    try {
-      const status: number = error.status || 500;
+      // const status: number = error.status || 500;
+      const status: number = 200;
       const message: string = error.message || 'Something went wrong';
 
       // logger.error(
@@ -19,7 +20,12 @@ const errorMiddleware = (
       telegramLogger.sendMessage(
          `❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`
       );
-      res.status(status).json({ message });
+      res.status(status).json({
+         success: false,
+         code: status,
+         message,
+         data: null,
+      });
    } catch (error) {
       next(error);
    }

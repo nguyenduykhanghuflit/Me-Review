@@ -1,11 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import { IMovie } from '../interfaces/movie.interface';
 declare class MovieController {
     private movieService;
-    getMoviesByCategory: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-    getMovieDetail: (req: Request, res: Response, next: NextFunction) => Promise<IMovie>;
-    createMovie: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-    createMulti: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-    updateMovie: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+    getMoviesByCategory: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>>>;
+    getMovieDetail: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>>>;
+    createMovie: (req: Request, res: Response, next: NextFunction) => Promise<void | Response<any, Record<string, any>>>;
+    createMulti: (req: Request, res: Response, next: NextFunction) => Promise<void | Response<any, Record<string, any>>>;
+    updateMovie: (req: Request, res: Response, next: NextFunction) => Promise<void | Response<any, Record<string, any>>>;
 }
 export default MovieController;

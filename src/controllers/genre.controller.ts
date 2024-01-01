@@ -10,8 +10,10 @@ class GenresController {
       try {
          const data: IGenre[] = await this.genreService.Get();
 
-         res.status(200).json({
-            data,
+         return res.status(200).json({
+            success: true,
+            code: 200,
+            data: data,
             message: 'Get data success',
          });
       } catch (error) {
@@ -26,9 +28,11 @@ class GenresController {
          body.updatedBy = 'DEV';
          const data: IGenre = await this.genreService.Create(body);
 
-         res.status(200).json({
+         return res.status(200).json({
+            success: true,
+            code: 200,
             data: data,
-            message: 'Create Success',
+            message: 'Get data success',
          });
       } catch (error) {
          next(error);

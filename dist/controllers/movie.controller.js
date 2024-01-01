@@ -30,7 +30,9 @@ class MovieController {
                     filters,
                 };
                 const movies = await this.movieService.Get(movieFilter);
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: movies,
                     message: 'Get movies  success',
                 });
@@ -43,7 +45,12 @@ class MovieController {
             try {
                 const movieId = req.params.id;
                 var data = await this.movieService.GetDetail(movieId);
-                return data;
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
+                    data: data,
+                    message: 'Get movies  success',
+                });
             }
             catch (error) {
                 next(error);
@@ -53,13 +60,15 @@ class MovieController {
             try {
                 const createMovieDto = req.body;
                 const movie = await this.movieService.Create(createMovieDto);
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: movie,
                     message: 'Create movie success',
                 });
             }
             catch (error) {
-                next(error);
+                return next(error);
             }
         };
         this.createMulti = async (req, res, next) => {
@@ -70,13 +79,15 @@ class MovieController {
                     const movie = await this.movieService.Create(createMovieDtos[i]);
                     result.push(movie);
                 }
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: result,
                     message: 'Create movie success',
                 });
             }
             catch (error) {
-                next(error);
+                return next(error);
             }
         };
         this.updateMovie = async (req, res, next) => {
@@ -84,13 +95,15 @@ class MovieController {
                 const movieId = req.params.movieId;
                 const updateMovieDto = req.body;
                 const movie = await this.movieService.Update(movieId, updateMovieDto);
-                res.status(200).json({
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
                     data: movie,
                     message: 'Update movie success',
                 });
             }
             catch (error) {
-                next(error);
+                return next(error);
             }
         };
     }

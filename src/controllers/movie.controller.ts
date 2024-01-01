@@ -46,7 +46,9 @@ class MovieController {
          const movies: { movies: IMovie[]; totalPage: number } =
             await this.movieService.Get(movieFilter);
 
-         res.status(200).json({
+         return res.status(200).json({
+            success: true,
+            code: 200,
             data: movies,
             message: 'Get movies  success',
          });
@@ -63,7 +65,13 @@ class MovieController {
       try {
          const movieId: unknown = req.params.id;
          var data = await this.movieService.GetDetail(movieId as ObjectId);
-         return data;
+
+         return res.status(200).json({
+            success: true,
+            code: 200,
+            data: data,
+            message: 'Get movies  success',
+         });
       } catch (error) {
          next(error);
       }
@@ -78,12 +86,14 @@ class MovieController {
          const createMovieDto: CreateMovieDto = req.body;
          const movie: IMovie = await this.movieService.Create(createMovieDto);
 
-         res.status(200).json({
+         return res.status(200).json({
+            success: true,
+            code: 200,
             data: movie,
             message: 'Create movie success',
          });
       } catch (error) {
-         next(error);
+         return next(error);
       }
    };
    public createMulti = async (
@@ -102,12 +112,14 @@ class MovieController {
             result.push(movie);
          }
 
-         res.status(200).json({
+         return res.status(200).json({
+            success: true,
+            code: 200,
             data: result,
             message: 'Create movie success',
          });
       } catch (error) {
-         next(error);
+         return next(error);
       }
    };
    public updateMovie = async (
@@ -123,12 +135,14 @@ class MovieController {
             updateMovieDto
          );
 
-         res.status(200).json({
+         return res.status(200).json({
+            success: true,
+            code: 200,
             data: movie,
             message: 'Update movie success',
          });
       } catch (error) {
-         next(error);
+         return next(error);
       }
    };
 }

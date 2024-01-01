@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 declare class CategoriesController {
     private categoryService;
-    getCategories: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-    createCategory: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+    getCategories: (req: Request, res: Response, next: NextFunction) => Promise<void | Response<any, Record<string, any>>>;
+    createCategory: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>>>;
 }
 export default CategoriesController;
