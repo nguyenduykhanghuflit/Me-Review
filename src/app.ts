@@ -8,8 +8,8 @@ import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
-import initMysql from '@/databases/connectMySQL';
-import { connectMySQL } from '@/databases/connectMySQL';
+// import initMysql from '@/databases/connectMySQL';
+// import { connectMySQL } from '@/databases/connectMySQL';
 import connectMongoDb from '@/databases/connectMongoDb';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
@@ -51,10 +51,10 @@ class App {
       return this.app;
    }
 
-   private connectToDatabasMySql() {
-      connectMySQL();
-      initMysql.sequelize.sync({ force: false });
-   }
+   // private connectToDatabasMySql() {
+   //    connectMySQL();
+   //    initMysql.sequelize.sync({ force: false });
+   // }
    private connectToMongoDB() {
       connectMongoDb();
    }
