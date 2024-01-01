@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const jsonwebtoken_1 = require("jsonwebtoken");
-const _config_1 = require("@config");
-const connectMySQL_1 = tslib_1.__importDefault(require("@/databases/connectMySQL"));
-const HttpException_1 = require("@exceptions/HttpException");
+const _config_1 = require("../config");
+const connectMySQL_1 = tslib_1.__importDefault(require("../databases/connectMySQL"));
+const HttpException_1 = require("../exceptions/HttpException");
 const authMiddleware = async (req, res, next) => {
     try {
         const Authorization = req.cookies['Authorization'] ||

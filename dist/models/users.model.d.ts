@@ -1,5 +1,5 @@
 import { Sequelize, Model, Optional } from 'sequelize';
-import { User } from '@interfaces/users.interface';
+import { User } from '../interfaces/users.interface';
 export type UserCreationAttributes = Optional<User, 'id' | 'email' | 'password'>;
 export declare class UserModel extends Model<User, UserCreationAttributes> implements User {
     id: number;

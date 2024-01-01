@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const bcrypt_1 = require("bcrypt");
 const jsonwebtoken_1 = require("jsonwebtoken");
-const _config_1 = require("@config");
-const connectMySQL_1 = tslib_1.__importDefault(require("@/databases/connectMySQL"));
-const HttpException_1 = require("@exceptions/HttpException");
-const util_1 = require("@utils/util");
+const _config_1 = require("../config");
+const connectMySQL_1 = tslib_1.__importDefault(require("../databases/connectMySQL"));
+const HttpException_1 = require("../exceptions/HttpException");
+const util_1 = require("../utils/util");
 class AuthService {
     constructor() {
         this.users = connectMySQL_1.default.Users;

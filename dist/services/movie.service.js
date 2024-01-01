@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const moive_schema_1 = tslib_1.__importDefault(require("@schemas/moive.schema"));
+const moive_schema_1 = tslib_1.__importDefault(require("../schemas/moive.schema"));
 class MovieService {
     constructor() {
         this.movies = moive_schema_1.default;

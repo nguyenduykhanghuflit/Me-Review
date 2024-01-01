@@ -10,13 +10,13 @@ const hpp_1 = tslib_1.__importDefault(require("hpp"));
 const morgan_1 = tslib_1.__importDefault(require("morgan"));
 const swagger_jsdoc_1 = tslib_1.__importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = tslib_1.__importDefault(require("swagger-ui-express"));
-const _config_1 = require("@config");
-const connectMySQL_1 = tslib_1.__importDefault(require("@/databases/connectMySQL"));
-const connectMySQL_2 = require("@/databases/connectMySQL");
-const connectMongoDb_1 = tslib_1.__importDefault(require("@/databases/connectMongoDb"));
-const error_middleware_1 = tslib_1.__importDefault(require("@middlewares/error.middleware"));
-const logger_1 = require("@utils/logger");
-const telegramLogger_1 = require("@utils/telegramLogger");
+const _config_1 = require("./config");
+const connectMySQL_1 = tslib_1.__importDefault(require("./databases/connectMySQL"));
+const connectMySQL_2 = require("./databases/connectMySQL");
+const connectMongoDb_1 = tslib_1.__importDefault(require("./databases/connectMongoDb"));
+const error_middleware_1 = tslib_1.__importDefault(require("./middlewares/error.middleware"));
+const logger_1 = require("./utils/logger");
+const telegramLogger_1 = require("./utils/telegramLogger");
 class App {
     constructor(routes) {
         this.app = (0, express_1.default)();

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const movie_service_1 = tslib_1.__importDefault(require("@services/movie.service"));
+const movie_service_1 = tslib_1.__importDefault(require("../services/movie.service"));
 class MovieController {
     constructor() {
         this.movieService = new movie_service_1.default();

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const express_1 = require("express");
-const upload_controller_1 = tslib_1.__importDefault(require("@controllers/upload.controller"));
-const cloudinary_service_1 = require("@services/cloudinary.service");
+const upload_controller_1 = tslib_1.__importDefault(require("../controllers/upload.controller"));
+const cloudinary_service_1 = require("../services/cloudinary.service");
 class UploadRoute {
     constructor() {
         this.path = '/api/v1';

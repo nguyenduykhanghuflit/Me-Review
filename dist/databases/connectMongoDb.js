@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
-const logger_1 = require("@utils/logger");
-const telegramLogger_1 = require("@utils/telegramLogger");
-const _config_1 = require("@config");
+const logger_1 = require("../utils/logger");
+const telegramLogger_1 = require("../utils/telegramLogger");
+const _config_1 = require("../config");
 //connect mongoose
 const connectMongoDb = () => {
     mongoose
@@ -19,7 +19,7 @@ const connectMongoDb = () => {
     });
 };
 //tạo ra các model lần đầu tiên
-//import models from '@schemas/index.schema'; // Import danh sách các mô hình
+//import models from '../schemas/index.schema'; // Import danh sách các mô hình
 // for (const modelName in models) {
 //    if (Object.hasOwnProperty.call(models, modelName)) {
 //       const Model = models[modelName];

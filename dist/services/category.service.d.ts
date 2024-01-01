@@ -1,5 +1,5 @@
-import { CreateCategoryDto } from '@dtos/categories.dto';
-import { ICategory } from '@/interfaces/categories.interface';
+import { CreateCategoryDto } from '../dtos/categories.dto';
+import { ICategory } from '../interfaces/categories.interface';
 declare class CategoryService {
     categories: any;
     findAllCategory(): Promise<ICategory[]>;

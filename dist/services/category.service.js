@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const category_schema_1 = tslib_1.__importDefault(require("@schemas/category.schema"));
-const HttpException_1 = require("@exceptions/HttpException");
-const util_1 = require("@utils/util");
+const category_schema_1 = tslib_1.__importDefault(require("../schemas/category.schema"));
+const HttpException_1 = require("../exceptions/HttpException");
+const util_1 = require("../utils/util");
 class CategoryService {
     constructor() {
         this.categories = category_schema_1.default;

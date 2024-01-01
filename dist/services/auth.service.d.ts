@@ -1,6 +1,6 @@
-import { CreateUserDto } from '@dtos/users.dto';
-import { TokenData } from '@interfaces/auth.interface';
-import { User } from '@interfaces/users.interface';
+import { CreateUserDto } from '../dtos/users.dto';
+import { TokenData } from '../interfaces/auth.interface';
+import { User } from '../interfaces/users.interface';
 declare class AuthService {
     users: typeof import("../models/users.model").UserModel;
     signup(userData: CreateUserDto): Promise<User>;

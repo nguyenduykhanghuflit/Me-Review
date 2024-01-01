@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const cloudinary_service_1 = require("@services/cloudinary.service");
+const cloudinary_service_1 = require("../services/cloudinary.service");
 const fs = require('fs');
 const axios = require('axios');
 class UploadController {

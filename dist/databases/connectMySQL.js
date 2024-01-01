@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectMySQL = void 0;
 const tslib_1 = require("tslib");
 const sequelize_1 = tslib_1.__importDefault(require("sequelize"));
-const _config_1 = require("@config");
-const users_model_1 = tslib_1.__importDefault(require("@models/users.model"));
-const logger_1 = require("@utils/logger");
-const telegramLogger_1 = require("@utils/telegramLogger");
+const _config_1 = require("../config");
+const users_model_1 = tslib_1.__importDefault(require("../models/users.model"));
+const logger_1 = require("../utils/logger");
+const telegramLogger_1 = require("../utils/telegramLogger");
 const sequelize = new sequelize_1.default.Sequelize(_config_1.DB_DATABASE, _config_1.DB_USER, _config_1.DB_PASSWORD, {
     dialect: 'mysql',
     host: _config_1.DB_HOST,

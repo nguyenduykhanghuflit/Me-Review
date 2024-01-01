@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const category_service_1 = tslib_1.__importDefault(require("@services/category.service"));
+const category_service_1 = tslib_1.__importDefault(require("../services/category.service"));
 class CategoriesController {
     constructor() {
         this.categoryService = new category_service_1.default();

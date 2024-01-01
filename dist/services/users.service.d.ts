@@ -1,5 +1,5 @@
-import { CreateUserDto } from '@dtos/users.dto';
-import { User } from '@interfaces/users.interface';
+import { CreateUserDto } from '../dtos/users.dto';
+import { User } from '../interfaces/users.interface';
 declare class UserService {
     users: typeof import("../models/users.model").UserModel;
     findAllUser(): Promise<User[]>;

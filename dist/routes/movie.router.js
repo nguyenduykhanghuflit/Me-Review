@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const express_1 = require("express");
-const movie_controller_1 = tslib_1.__importDefault(require("@controllers/movie.controller"));
+const movie_controller_1 = tslib_1.__importDefault(require("../controllers/movie.controller"));
 class MoviesRoute {
     constructor() {
         this.path = '/api/v1/movies';

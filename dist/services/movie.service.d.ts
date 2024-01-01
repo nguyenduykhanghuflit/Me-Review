@@ -1,5 +1,5 @@
-import { IMovie, IMovieFilter, IMovieVM } from '@/interfaces/movie.interface';
-import { CreateMovieDto } from '@/dtos/movie.dto';
+import { IMovie, IMovieFilter, IMovieVM } from '../interfaces/movie.interface';
+import { CreateMovieDto } from '../dtos/movie.dto';
 declare class MovieService {
     movies: any;
     findMovies(filterMovie: IMovieFilter): Promise<IMovieVM>;

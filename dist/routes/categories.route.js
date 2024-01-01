@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const express_1 = require("express");
-const category_controller_1 = tslib_1.__importDefault(require("@controllers/category.controller"));
-const categories_dto_1 = require("@dtos/categories.dto");
-const validation_middleware_1 = tslib_1.__importDefault(require("@middlewares/validation.middleware"));
+const category_controller_1 = tslib_1.__importDefault(require("../controllers/category.controller"));
+const categories_dto_1 = require("../dtos/categories.dto");
+const validation_middleware_1 = tslib_1.__importDefault(require("../middlewares/validation.middleware"));
 class CategoriesRoute {
     constructor() {
         this.path = '/api/v1/categories';
