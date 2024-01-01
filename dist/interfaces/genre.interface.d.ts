@@ -1,10 +1,8 @@
 import { ObjectId } from 'mongoose';
-export interface ICategory {
+export interface IGenre {
     _id: ObjectId;
     name: string;
     description: string;
-    createdAt: Date;
     updatedAt: Date;
     updatedBy: string;
-    isActive: boolean;
 }

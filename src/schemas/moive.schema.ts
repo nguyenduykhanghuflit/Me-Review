@@ -3,6 +3,7 @@ const MovieSchema = new mongoose.Schema({
    title: { type: String, required: true, index: true }, // Đánh chỉ mục cho trường "title"
    movieName: { type: String, required: true, index: true }, // Đánh chỉ mục cho trường "title"
    description: { type: String },
+   actors: { type: String },
    releaseDate: { type: Date, index: true },
    director: { type: String, index: true }, //đạo diễn
    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],

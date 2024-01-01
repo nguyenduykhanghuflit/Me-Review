@@ -6,10 +6,10 @@ const axios = require('axios');
 class UploadController {
     constructor() {
         this.videoService = new cloudinary_service_1.VideoService();
-        this.uploadVideo = async (req, res, next) => {
+        this.uploadVideoCloudinary = async (req, res, next) => {
             try {
                 const file = req.file;
-                const videoUrl = await this.videoService.uploadVideo(file);
+                const videoUrl = await this.videoService.UploadVideoCloudinary(file);
                 res.json({ url: videoUrl });
             }
             catch (error) {

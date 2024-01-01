@@ -1,11 +1,12 @@
 import Movie from '@schemas/moive.schema';
 import { IMovie, IMovieFilter, IMovieVM } from '@/interfaces/movie.interface';
 import { CreateMovieDto } from '@/dtos/movie.dto';
+import { ObjectId } from 'mongoose';
 
 class MovieService {
    public movies = Movie;
 
-   public async findMovies(filterMovie: IMovieFilter): Promise<IMovieVM> {
+   public async Get(filterMovie: IMovieFilter): Promise<IMovieVM> {
       const limit = filterMovie.pageSize;
       const skip = (filterMovie.page - 1) * limit;
       let query: any = {};
@@ -22,6 +23,22 @@ class MovieService {
                case 'status':
                   query.status = filter.value;
                   break;
+               case 'keyword':
+                  // Thêm điều kiện tìm kiếm cho các trường cụ thể
+                  query.$or = [
+                     { title: { $regex: filter.value, $options: 'i' } }, // Tìm kiếm không phân biệt chữ hoa chữ thường
+                     { movieName: { $regex: filter.value, $options: 'i' } },
+                     { description: { $regex: filter.value, $options: 'i' } },
+                     { director: { $regex: filter.value, $options: 'i' } },
+                  ];
+                  break;
+               case 'genre':
+                  // Thêm điều kiện tìm kiếm theo thể loại trong genres và mainGenres
+                  query.$or = [
+                     { genres: { $in: [filter.value] } },
+                     { mainGenres: filter.value },
+                  ];
+                  break;
                default:
                   throw new Error('Invalid filter type.');
             }
@@ -31,7 +48,23 @@ class MovieService {
       const movies: IMovie[] = await this.movies
          .find(query)
          .skip(skip)
-         .limit(limit);
+         .limit(limit)
+         .populate({
+            path: 'genres',
+            model: 'Genre',
+            select: '_id name description',
+         })
+         .populate({
+            path: 'categories',
+            model: 'Category',
+            select: '_id name description',
+         })
+         .populate({
+            path: 'mainGenres',
+            model: 'Genre',
+            select: '_id name description',
+         })
+         .exec();
 
       const totalMovies: number = await this.movies
          .find(query)
@@ -39,16 +72,30 @@ class MovieService {
 
       const totalPage: number = Math.ceil(totalMovies / limit);
 
-      const res: IMovieVM = { movies, totalPage };
+      const res: IMovieVM = {
+         currentPage: filterMovie.page,
+         totalPage,
+         totalMovies: movies.length,
+         movies,
+      };
       return res;
    }
 
-   public async createMovie(createMovieDto: CreateMovieDto): Promise<IMovie> {
+   public async GetDetail(id: ObjectId): Promise<IMovie> {
+      try {
+         const data: IMovie = this.movies.findById(id);
+         return data;
+      } catch (error) {
+         throw error;
+      }
+   }
+
+   public async Create(createMovieDto: CreateMovieDto): Promise<IMovie> {
       const movie: IMovie = await this.movies.create(createMovieDto);
       return movie;
    }
 
-   public async updateMovie(
+   public async Update(
       movieId: string,
       updateMovieDto: CreateMovieDto
    ): Promise<IMovie> {

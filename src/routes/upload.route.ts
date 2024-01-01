@@ -4,7 +4,7 @@ import { upload } from '@services/cloudinary.service';
 import { Routes } from '@interfaces/routes.interface';
 
 class UploadRoute implements Routes {
-   public path = '/api/v1';
+   public path = '/api/v1/upload';
    public router = Router();
    public uploadController = new UploadController();
 
@@ -14,9 +14,9 @@ class UploadRoute implements Routes {
 
    private initializeRoutes() {
       this.router.post(
-         `${this.path}/upload`,
+         `${this.path}/cloudinary`,
          upload.single('video'),
-         this.uploadController.uploadVideo
+         this.uploadController.uploadVideoCloudinary
       );
       this.router.get(`${this.path}/stream`, this.uploadController.streamVideo);
    }

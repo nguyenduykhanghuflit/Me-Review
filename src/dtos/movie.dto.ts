@@ -30,6 +30,9 @@ export class CreateMovieDto {
    @IsString()
    public movieName: string;
 
+   @IsString()
+   public actors: string;
+
    @IsOptional()
    @IsString()
    public description?: string;

@@ -5,10 +5,3 @@ export class CreateCategoryDto {
    @IsString()
    description: string;
 }
-
-export class CreateGenreDto {
-   name: string;
-   description: string;
-   updatedAt: Date;
-   updatedBy: string;
-}

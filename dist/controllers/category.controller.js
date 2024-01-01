@@ -9,7 +9,7 @@ class CategoriesController {
             try {
                 // const userId = Number(req.params.id);
                 // const userData: CreateUserDto = req.body;
-                const findAllCategory = await this.categoryService.findAllCategory();
+                const findAllCategory = await this.categoryService.Get();
                 res.status(200).json({
                     data: findAllCategory,
                     message: 'Get data success',
@@ -23,7 +23,7 @@ class CategoriesController {
             try {
                 // const userId = Number(req.params.id);
                 const body = req.body;
-                const data = await this.categoryService.createCategrory(body);
+                const data = await this.categoryService.Create(body);
                 res.status(200).json({
                     data: data,
                     message: 'Create Success',

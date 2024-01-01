@@ -8,11 +8,20 @@ class CategoryService {
     constructor() {
         this.categories = category_schema_1.default;
     }
-    async findAllCategory() {
+    async Get() {
         const allCategory = await this.categories.find();
         return allCategory;
     }
-    async createCategrory(categoryData) {
+    async GetDetail(id) {
+        try {
+            const data = await this.categories.findById(id);
+            return data;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async Create(categoryData) {
         if ((0, util_1.isEmpty)(categoryData))
             throw new HttpException_1.HttpException(400, 'categoryData is empty');
         const createCategroryData = await this.categories.create(Object.assign({}, categoryData));

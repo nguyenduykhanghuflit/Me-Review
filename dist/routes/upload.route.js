@@ -6,13 +6,13 @@ const upload_controller_1 = tslib_1.__importDefault(require("../controllers/uplo
 const cloudinary_service_1 = require("../services/cloudinary.service");
 class UploadRoute {
     constructor() {
-        this.path = '/api/v1';
+        this.path = '/api/v1/upload';
         this.router = (0, express_1.Router)();
         this.uploadController = new upload_controller_1.default();
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.post(`${this.path}/upload`, cloudinary_service_1.upload.single('video'), this.uploadController.uploadVideo);
+        this.router.post(`${this.path}/cloudinary`, cloudinary_service_1.upload.single('video'), this.uploadController.uploadVideoCloudinary);
         this.router.get(`${this.path}/stream`, this.uploadController.streamVideo);
     }
 }

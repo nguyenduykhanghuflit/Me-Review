@@ -1,6 +1,9 @@
+import { ObjectId } from 'mongoose';
 export interface IMovie {
+    _id: ObjectId;
     title: string;
     movieName: string;
+    actors: string;
     description?: string;
     releaseDate?: Date;
     director?: string;
@@ -22,7 +25,7 @@ export interface IMovie {
     }[];
 }
 export interface IFilterType {
-    type: 'category' | 'productionYear' | 'status';
+    type: 'category' | 'productionYear' | 'status' | 'keyword' | 'genre';
     value: string | number;
 }
 export interface IMovieFilter {
@@ -31,6 +34,8 @@ export interface IMovieFilter {
     filters: Array<IFilterType>;
 }
 export interface IMovieVM {
-    movies: IMovie[];
+    currentPage: number;
     totalPage: number;
+    totalMovies: number;
+    movies: IMovie[];
 }

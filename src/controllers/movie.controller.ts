@@ -7,6 +7,7 @@ import {
    IFilterType,
 } from '@/interfaces/movie.interface';
 import { CreateMovieDto } from '@/dtos/movie.dto';
+import { ObjectId } from 'mongoose';
 
 class MovieController {
    private movieService = new MovieService();
@@ -33,6 +34,8 @@ class MovieController {
                value: req.query.productionYear as string,
             },
             { type: 'status', value: req.query.status as string },
+            { type: 'keyword', value: req.query.keyword as string },
+            { type: 'genre', value: req.query.genre as string },
          ];
          const movieFilter: IMovieFilter = {
             page: pageNumber,
@@ -41,12 +44,26 @@ class MovieController {
          };
 
          const movies: { movies: IMovie[]; totalPage: number } =
-            await this.movieService.findMovies(movieFilter);
+            await this.movieService.Get(movieFilter);
 
          res.status(200).json({
             data: movies,
             message: 'Get movies  success',
          });
+      } catch (error) {
+         next(error);
+      }
+   };
+
+   public getMovieDetail = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+   ) => {
+      try {
+         const movieId: unknown = req.params.id;
+         var data = await this.movieService.GetDetail(movieId as ObjectId);
+         return data;
       } catch (error) {
          next(error);
       }
@@ -59,9 +76,7 @@ class MovieController {
    ) => {
       try {
          const createMovieDto: CreateMovieDto = req.body;
-         const movie: IMovie = await this.movieService.createMovie(
-            createMovieDto
-         );
+         const movie: IMovie = await this.movieService.Create(createMovieDto);
 
          res.status(200).json({
             data: movie,
@@ -71,7 +86,30 @@ class MovieController {
          next(error);
       }
    };
+   public createMulti = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+   ) => {
+      try {
+         const createMovieDtos: CreateMovieDto[] = req.body;
 
+         let result = [];
+         for (let i = 0; i < createMovieDtos.length; i++) {
+            const movie: IMovie = await this.movieService.Create(
+               createMovieDtos[i]
+            );
+            result.push(movie);
+         }
+
+         res.status(200).json({
+            data: result,
+            message: 'Create movie success',
+         });
+      } catch (error) {
+         next(error);
+      }
+   };
    public updateMovie = async (
       req: Request,
       res: Response,
@@ -80,7 +118,7 @@ class MovieController {
       try {
          const movieId: string = req.params.movieId;
          const updateMovieDto: CreateMovieDto = req.body;
-         const movie: IMovie = await this.movieService.updateMovie(
+         const movie: IMovie = await this.movieService.Update(
             movieId,
             updateMovieDto
          );

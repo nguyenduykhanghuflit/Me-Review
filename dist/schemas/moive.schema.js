@@ -5,6 +5,7 @@ const MovieSchema = new mongoose.Schema({
     title: { type: String, required: true, index: true },
     movieName: { type: String, required: true, index: true },
     description: { type: String },
+    actors: { type: String },
     releaseDate: { type: Date, index: true },
     director: { type: String, index: true },
     categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],

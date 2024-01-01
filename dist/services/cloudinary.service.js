@@ -5,33 +5,29 @@ const tslib_1 = require("tslib");
 const multer_1 = tslib_1.__importDefault(require("multer"));
 const cloudinary_1 = tslib_1.__importDefault(require("cloudinary"));
 const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
-// Cấu hình Cloudinary
 cloudinary_1.default.v2.config({
     cloud_name: 'dxshs8qrh',
     api_key: '312364961238263',
     api_secret: 'cbmrwu3kYMv9-YYUEuNrp7W0IOc',
 });
-// Cấu hình Multer storage để lưu trữ video trong Cloudinary
 const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
     cloudinary: cloudinary_1.default.v2,
     params: (req, file) => {
         return {
             folder: 'video-uploads',
             resource_type: 'video',
-            // Các thuộc tính khác của params (nếu có)
         };
     },
 });
 // Thiết lập middleware Multer
 exports.upload = (0, multer_1.default)({ storage });
 class VideoService {
-    async uploadVideo(file) {
+    async UploadVideoCloudinary(file) {
         try {
             if (!file) {
                 throw new Error('No video file provided');
             }
             const { path, filename } = file;
-            // Lấy URL của video từ Cloudinary
             const { secure_url } = await cloudinary_1.default.v2.uploader.upload(path, {
                 public_id: filename,
                 resource_type: 'video',

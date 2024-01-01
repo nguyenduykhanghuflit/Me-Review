@@ -9,6 +9,7 @@ declare class ImageUrlDto {
 export declare class CreateMovieDto {
     title: string;
     movieName: string;
+    actors: string;
     description?: string;
     releaseDate?: Date;
     director?: string;

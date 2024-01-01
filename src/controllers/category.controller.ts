@@ -14,8 +14,7 @@ class CategoriesController {
       try {
          // const userId = Number(req.params.id);
          // const userData: CreateUserDto = req.body;
-         const findAllCategory: ICategory[] =
-            await this.categoryService.findAllCategory();
+         const findAllCategory: ICategory[] = await this.categoryService.Get();
 
          res.status(200).json({
             data: findAllCategory,
@@ -33,9 +32,7 @@ class CategoriesController {
       try {
          // const userId = Number(req.params.id);
          const body: CreateCategoryDto = req.body;
-         const data: ICategory = await this.categoryService.createCategrory(
-            body
-         );
+         const data: ICategory = await this.categoryService.Create(body);
 
          res.status(200).json({
             data: data,

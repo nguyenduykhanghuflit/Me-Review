@@ -21,13 +21,15 @@ class MovieController {
                         value: req.query.productionYear,
                     },
                     { type: 'status', value: req.query.status },
+                    { type: 'keyword', value: req.query.keyword },
+                    { type: 'genre', value: req.query.genre },
                 ];
                 const movieFilter = {
                     page: pageNumber,
                     pageSize,
                     filters,
                 };
-                const movies = await this.movieService.findMovies(movieFilter);
+                const movies = await this.movieService.Get(movieFilter);
                 res.status(200).json({
                     data: movies,
                     message: 'Get movies  success',
@@ -37,12 +39,39 @@ class MovieController {
                 next(error);
             }
         };
+        this.getMovieDetail = async (req, res, next) => {
+            try {
+                const movieId = req.params.id;
+                var data = await this.movieService.GetDetail(movieId);
+                return data;
+            }
+            catch (error) {
+                next(error);
+            }
+        };
         this.createMovie = async (req, res, next) => {
             try {
                 const createMovieDto = req.body;
-                const movie = await this.movieService.createMovie(createMovieDto);
+                const movie = await this.movieService.Create(createMovieDto);
                 res.status(200).json({
                     data: movie,
+                    message: 'Create movie success',
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        };
+        this.createMulti = async (req, res, next) => {
+            try {
+                const createMovieDtos = req.body;
+                let result = [];
+                for (let i = 0; i < createMovieDtos.length; i++) {
+                    const movie = await this.movieService.Create(createMovieDtos[i]);
+                    result.push(movie);
+                }
+                res.status(200).json({
+                    data: result,
                     message: 'Create movie success',
                 });
             }
@@ -54,7 +83,7 @@ class MovieController {
             try {
                 const movieId = req.params.movieId;
                 const updateMovieDto = req.body;
-                const movie = await this.movieService.updateMovie(movieId, updateMovieDto);
+                const movie = await this.movieService.Update(movieId, updateMovieDto);
                 res.status(200).json({
                     data: movie,
                     message: 'Update movie success',

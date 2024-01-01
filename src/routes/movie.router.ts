@@ -16,18 +16,12 @@ class MoviesRoute implements Routes {
    private initializeRoutes() {
       this.router.get(`${this.path}`, this.movieController.getMoviesByCategory);
 
-      //   this.router.get(
-      //      `${this.path}/:id(\\d+)`,
-      //      this.usersController.getUserById
-      //   );
+      this.router.get(`${this.path}/:id`, this.movieController.getMovieDetail);
 
       this.router.post(`${this.path}`, this.movieController.createMovie);
+      this.router.post(`${this.path}/multi`, this.movieController.createMulti);
 
-      //   this.router.put(
-      //      `${this.path}/:id(\\d+)`,
-      //      validationMiddleware(CreateUserDto, 'body', true),
-      //      this.usersController.updateUser
-      //   );
+      this.router.put(`${this.path}/:id`, this.movieController.updateMovie);
 
       //   this.router.delete(
       //      `${this.path}/:id(\\d+)`,
