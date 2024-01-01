@@ -6,11 +6,21 @@ import {
    IMovie,
    IFilterType,
 } from '@/interfaces/movie.interface';
-import { CreateMovieDto } from '@/dtos/movie.dto';
+import { CreateMovieDto, UpdateMovieDto } from '@/dtos/movie.dto';
 import { ObjectId } from 'mongoose';
 
 class MovieController {
    private movieService = new MovieService();
+
+   public dev = async (req: Request, res: Response, next: NextFunction) => {
+      const data = await this.movieService.Dev();
+      return res.status(200).json({
+         success: true,
+         code: 200,
+         data: data,
+         message: 'Get movies  success',
+      });
+   };
 
    public getMoviesByCategory = async (
       req: Request,
@@ -129,7 +139,7 @@ class MovieController {
    ) => {
       try {
          const movieId: string = req.params.movieId;
-         const updateMovieDto: CreateMovieDto = req.body;
+         const updateMovieDto: UpdateMovieDto = req.body;
          const movie: IMovie = await this.movieService.Update(
             movieId,
             updateMovieDto
@@ -139,6 +149,37 @@ class MovieController {
             success: true,
             code: 200,
             data: movie,
+            message: 'Update movie success',
+         });
+      } catch (error) {
+         return next(error);
+      }
+   };
+
+   public updateMulti = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+   ) => {
+      try {
+         const data: UpdateMovieDto[] = req.body;
+
+         let aa = [];
+         for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            const movieId: any = item._id;
+            const updateMovieDto: UpdateMovieDto = item;
+            const movie: IMovie = await this.movieService.Update(
+               movieId,
+               updateMovieDto
+            );
+            aa.push(movie);
+         }
+
+         return res.status(200).json({
+            success: true,
+            code: 200,
+            data: aa,
             message: 'Update movie success',
          });
       } catch (error) {

@@ -6,6 +6,41 @@ class MovieService {
     constructor() {
         this.movies = moive_schema_1.default;
     }
+    async Dev() {
+        console.log('vô đây');
+        const movies = await this.movies
+            .find({ movieName: { $ne: 'asd' } })
+            .skip(0)
+            .limit(100)
+            .populate({
+            path: 'genres',
+            model: 'Genre',
+            select: '_id name description',
+        })
+            .populate({
+            path: 'genres',
+            model: 'Genre',
+            select: '_id name description',
+        })
+            .populate({
+            path: 'categories',
+            model: 'Category',
+            select: '_id name description',
+        })
+            .populate({
+            path: 'mainGenres',
+            model: 'Genre',
+            select: '_id name description',
+        })
+            .exec();
+        const res = {
+            currentPage: 1,
+            totalPage: 100,
+            totalMovies: movies.length,
+            movies,
+        };
+        return res;
+    }
     async Get(filterMovie) {
         const limit = filterMovie.pageSize;
         const skip = (filterMovie.page - 1) * limit;
@@ -89,8 +124,13 @@ class MovieService {
         return movie;
     }
     async Update(movieId, updateMovieDto) {
-        const movie = await this.movies.findByIdAndUpdate(movieId, updateMovieDto, { new: true });
-        return movie;
+        try {
+            const movie = await this.movies.findByIdAndUpdate(movieId, { $set: updateMovieDto }, { new: true });
+            return movie;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 }
 exports.default = MovieService;

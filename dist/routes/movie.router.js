@@ -16,6 +16,8 @@ class MoviesRoute {
         this.router.post(`${this.path}`, this.movieController.createMovie);
         this.router.post(`${this.path}/multi`, this.movieController.createMulti);
         this.router.put(`${this.path}/:id`, this.movieController.updateMovie);
+        this.router.put(`/movies/update`, this.movieController.updateMulti);
+        this.router.get(`/movies/dev`, this.movieController.dev);
         //   this.router.delete(
         //      `${this.path}/:id(\\d+)`,
         //      this.usersController.deleteUser

@@ -5,6 +5,15 @@ const movie_service_1 = tslib_1.__importDefault(require("../services/movie.servi
 class MovieController {
     constructor() {
         this.movieService = new movie_service_1.default();
+        this.dev = async (req, res, next) => {
+            const data = await this.movieService.Dev();
+            return res.status(200).json({
+                success: true,
+                code: 200,
+                data: data,
+                message: 'Get movies  success',
+            });
+        };
         this.getMoviesByCategory = async (req, res, next) => {
             try {
                 const pageNumber = Number(req.query.pageNumer || 1);
@@ -99,6 +108,28 @@ class MovieController {
                     success: true,
                     code: 200,
                     data: movie,
+                    message: 'Update movie success',
+                });
+            }
+            catch (error) {
+                return next(error);
+            }
+        };
+        this.updateMulti = async (req, res, next) => {
+            try {
+                const data = req.body;
+                let aa = [];
+                for (let i = 0; i < data.length; i++) {
+                    const item = data[i];
+                    const movieId = item._id;
+                    const updateMovieDto = item;
+                    const movie = await this.movieService.Update(movieId, updateMovieDto);
+                    aa.push(movie);
+                }
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
+                    data: aa,
                     message: 'Update movie success',
                 });
             }

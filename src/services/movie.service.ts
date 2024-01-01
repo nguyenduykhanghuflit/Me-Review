@@ -1,11 +1,47 @@
 import Movie from '@schemas/moive.schema';
 import { IMovie, IMovieFilter, IMovieVM } from '@/interfaces/movie.interface';
-import { CreateMovieDto } from '@/dtos/movie.dto';
+import { CreateMovieDto, UpdateMovieDto } from '@/dtos/movie.dto';
 import { ObjectId } from 'mongoose';
 
 class MovieService {
    public movies = Movie;
 
+   public async Dev(): Promise<IMovieVM> {
+      console.log('vô đây');
+      const movies: IMovie[] = await this.movies
+         .find({ movieName: { $ne: 'asd' } })
+         .skip(0)
+         .limit(100)
+         .populate({
+            path: 'genres',
+            model: 'Genre',
+            select: '_id name description',
+         })
+         .populate({
+            path: 'genres',
+            model: 'Genre',
+            select: '_id name description',
+         })
+         .populate({
+            path: 'categories',
+            model: 'Category',
+            select: '_id name description',
+         })
+         .populate({
+            path: 'mainGenres',
+            model: 'Genre',
+            select: '_id name description',
+         })
+         .exec();
+
+      const res: IMovieVM = {
+         currentPage: 1,
+         totalPage: 100,
+         totalMovies: movies.length,
+         movies,
+      };
+      return res;
+   }
    public async Get(filterMovie: IMovieFilter): Promise<IMovieVM> {
       const limit = filterMovie.pageSize;
       const skip = (filterMovie.page - 1) * limit;
@@ -97,14 +133,18 @@ class MovieService {
 
    public async Update(
       movieId: string,
-      updateMovieDto: CreateMovieDto
+      updateMovieDto: UpdateMovieDto
    ): Promise<IMovie> {
-      const movie: IMovie = await this.movies.findByIdAndUpdate(
-         movieId,
-         updateMovieDto,
-         { new: true }
-      );
-      return movie;
+      try {
+         const movie: IMovie = await this.movies.findByIdAndUpdate(
+            movieId,
+            { $set: updateMovieDto },
+            { new: true }
+         );
+         return movie;
+      } catch (error) {
+         console.log(error);
+      }
    }
 }
 

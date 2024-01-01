@@ -7,8 +7,8 @@ class IndexController {
                 return res.status(200).json({
                     success: true,
                     code: 200,
-                    data: '🚀 Hello KhangNguyen 🚀',
-                    message: '🚀 Hello KhangNguyen 🚀',
+                    data: '🚀 Hello World 🚀',
+                    message: '🚀 Develop by KhangNguyen 🚀',
                 });
             }
             catch (error) {
