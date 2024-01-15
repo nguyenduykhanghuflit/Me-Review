@@ -5,11 +5,12 @@ const tslib_1 = require("tslib");
 const multer_1 = tslib_1.__importDefault(require("multer"));
 const cloudinary_1 = tslib_1.__importDefault(require("cloudinary"));
 const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
-cloudinary_1.default.v2.config({
-    cloud_name: 'dxshs8qrh',
-    api_key: '312364961238263',
-    api_secret: 'cbmrwu3kYMv9-YYUEuNrp7W0IOc',
-});
+const cloudinary_config_1 = require("../config/cloudinary.config");
+const MAP_SERVER = {
+    SERVER_1: cloudinary_config_1.VIDEO_SERVER_1_CONFIG,
+    SERVER_2: cloudinary_config_1.VIDEO_SERVER_2_CONFIG,
+};
+cloudinary_1.default.v2.config(cloudinary_config_1.VIDEO_SERVER_1_CONFIG);
 const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
     cloudinary: cloudinary_1.default.v2,
     params: (req, file) => {
@@ -19,15 +20,15 @@ const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
         };
     },
 });
-// Thiết lập middleware Multer
 exports.upload = (0, multer_1.default)({ storage });
 class VideoService {
-    async UploadVideoCloudinary(file) {
+    async UploadVideoCloudinary(file, server) {
         try {
             if (!file) {
                 throw new Error('No video file provided');
             }
             const { path, filename } = file;
+            MAP_SERVER[server] && cloudinary_1.default.v2.config(MAP_SERVER[server]);
             const { secure_url } = await cloudinary_1.default.v2.uploader.upload(path, {
                 public_id: filename,
                 resource_type: 'video',

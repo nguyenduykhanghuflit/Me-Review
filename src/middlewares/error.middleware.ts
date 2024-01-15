@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpException } from '@exceptions/HttpException';
+import { HttpException } from '@/utils/exception.utils';
 // import { logger } from '@utils/logger';
-import { telegramLogger } from '@utils/telegramLogger';
+import { telegramLogger } from '@/utils/telegram-logger.utils';
 const errorMiddleware = (
    error: HttpException,
    req: Request,

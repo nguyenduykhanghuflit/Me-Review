@@ -1,5 +1,5 @@
 import UploadController from '../controllers/upload.controller';
-import { Routes } from '../interfaces/routes.interface';
+import { Routes } from '../core/interfaces/routes.interface';
 declare class UploadRoute implements Routes {
     path: string;
     router: import("express-serve-static-core").Router;

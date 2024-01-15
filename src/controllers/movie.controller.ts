@@ -1,24 +1,20 @@
 // movie.controller.ts
 import { NextFunction, Request, Response } from 'express';
-import MovieService from '@services/movie.service';
-import {
-   IMovieFilter,
-   IMovie,
-   IFilterType,
-} from '@/interfaces/movie.interface';
-import { CreateMovieDto, UpdateMovieDto } from '@/dtos/movie.dto';
+import MovieRepository from '@/databases/repositories/movie.repositories';
+import { IMovieFilter, IMovie, IFilterType } from '@interfaces/movie.interface';
+import { CreateMovieDto, UpdateMovieDto } from '@dtos/movie.dto';
 import { ObjectId } from 'mongoose';
 
 class MovieController {
-   private movieService = new MovieService();
+   private movieRepository = new MovieRepository();
 
    public dev = async (req: Request, res: Response, next: NextFunction) => {
-      const data = await this.movieService.Dev();
+      const data = await this.movieRepository.Dev();
       return res.status(200).json({
          success: true,
          code: 200,
          data: data,
-         message: 'Get movies  success',
+         message: 'Get movies success',
       });
    };
 
@@ -54,13 +50,13 @@ class MovieController {
          };
 
          const movies: { movies: IMovie[]; totalPage: number } =
-            await this.movieService.Get(movieFilter);
+            await this.movieRepository.Get(movieFilter);
 
          return res.status(200).json({
             success: true,
             code: 200,
             data: movies,
-            message: 'Get movies  success',
+            message: 'Get movies success',
          });
       } catch (error) {
          next(error);
@@ -74,13 +70,13 @@ class MovieController {
    ) => {
       try {
          const movieId: unknown = req.params.id;
-         var data = await this.movieService.GetDetail(movieId as ObjectId);
+         var data = await this.movieRepository.GetDetail(movieId as ObjectId);
 
          return res.status(200).json({
             success: true,
-            code: 200,
+            code: data ? 200 : 404,
             data: data,
-            message: 'Get movies  success',
+            message: data ? 'Get movie success' : 'Not found',
          });
       } catch (error) {
          next(error);
@@ -94,7 +90,9 @@ class MovieController {
    ) => {
       try {
          const createMovieDto: CreateMovieDto = req.body;
-         const movie: IMovie = await this.movieService.Create(createMovieDto);
+         const movie: IMovie = await this.movieRepository.Create(
+            createMovieDto
+         );
 
          return res.status(200).json({
             success: true,
@@ -116,7 +114,7 @@ class MovieController {
 
          let result = [];
          for (let i = 0; i < createMovieDtos.length; i++) {
-            const movie: IMovie = await this.movieService.Create(
+            const movie: IMovie = await this.movieRepository.Create(
                createMovieDtos[i]
             );
             result.push(movie);
@@ -140,7 +138,7 @@ class MovieController {
       try {
          const movieId: string = req.params.movieId;
          const updateMovieDto: UpdateMovieDto = req.body;
-         const movie: IMovie = await this.movieService.Update(
+         const movie: IMovie = await this.movieRepository.Update(
             movieId,
             updateMovieDto
          );
@@ -169,7 +167,7 @@ class MovieController {
             const item = data[i];
             const movieId: any = item._id;
             const updateMovieDto: UpdateMovieDto = item;
-            const movie: IMovie = await this.movieService.Update(
+            const movie: IMovie = await this.movieRepository.Update(
                movieId,
                updateMovieDto
             );

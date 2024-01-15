@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const movie_service_1 = tslib_1.__importDefault(require("../services/movie.service"));
+const movie_repositories_1 = tslib_1.__importDefault(require("../databases/repositories/movie.repositories"));
 class MovieController {
     constructor() {
-        this.movieService = new movie_service_1.default();
+        this.movieRepository = new movie_repositories_1.default();
         this.dev = async (req, res, next) => {
-            const data = await this.movieService.Dev();
+            const data = await this.movieRepository.Dev();
             return res.status(200).json({
                 success: true,
                 code: 200,
                 data: data,
-                message: 'Get movies  success',
+                message: 'Get movies success',
             });
         };
         this.getMoviesByCategory = async (req, res, next) => {
@@ -38,12 +38,12 @@ class MovieController {
                     pageSize,
                     filters,
                 };
-                const movies = await this.movieService.Get(movieFilter);
+                const movies = await this.movieRepository.Get(movieFilter);
                 return res.status(200).json({
                     success: true,
                     code: 200,
                     data: movies,
-                    message: 'Get movies  success',
+                    message: 'Get movies success',
                 });
             }
             catch (error) {
@@ -53,12 +53,12 @@ class MovieController {
         this.getMovieDetail = async (req, res, next) => {
             try {
                 const movieId = req.params.id;
-                var data = await this.movieService.GetDetail(movieId);
+                var data = await this.movieRepository.GetDetail(movieId);
                 return res.status(200).json({
                     success: true,
-                    code: 200,
+                    code: data ? 200 : 404,
                     data: data,
-                    message: 'Get movies  success',
+                    message: data ? 'Get movie success' : 'Not found',
                 });
             }
             catch (error) {
@@ -68,7 +68,7 @@ class MovieController {
         this.createMovie = async (req, res, next) => {
             try {
                 const createMovieDto = req.body;
-                const movie = await this.movieService.Create(createMovieDto);
+                const movie = await this.movieRepository.Create(createMovieDto);
                 return res.status(200).json({
                     success: true,
                     code: 200,
@@ -85,7 +85,7 @@ class MovieController {
                 const createMovieDtos = req.body;
                 let result = [];
                 for (let i = 0; i < createMovieDtos.length; i++) {
-                    const movie = await this.movieService.Create(createMovieDtos[i]);
+                    const movie = await this.movieRepository.Create(createMovieDtos[i]);
                     result.push(movie);
                 }
                 return res.status(200).json({
@@ -103,7 +103,7 @@ class MovieController {
             try {
                 const movieId = req.params.movieId;
                 const updateMovieDto = req.body;
-                const movie = await this.movieService.Update(movieId, updateMovieDto);
+                const movie = await this.movieRepository.Update(movieId, updateMovieDto);
                 return res.status(200).json({
                     success: true,
                     code: 200,
@@ -123,7 +123,7 @@ class MovieController {
                     const item = data[i];
                     const movieId = item._id;
                     const updateMovieDto = item;
-                    const movie = await this.movieService.Update(movieId, updateMovieDto);
+                    const movie = await this.movieRepository.Update(movieId, updateMovieDto);
                     aa.push(movie);
                 }
                 return res.status(200).json({

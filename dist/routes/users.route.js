@@ -1,7 +1,7 @@
 // import { Router } from 'express';
 // import UsersController from '../controllers/users.controller';
-// import { CreateUserDto } from '../dtos/users.dto';
-// import { Routes } from '../interfaces/routes.interface';
+// import { CreateUserDto } from '../core/dtos/users.dto';
+// import { Routes } from '../core/interfaces/routes.interface';
 // import validationMiddleware from '../middlewares/validation.middleware';
 // class UsersRoute implements Routes {
 //    public path = '/users';

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import GenresController from '@controllers/genre.controller';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
-import { CreateGenreDto } from '@/dtos/genre.dto';
+import { CreateGenreDto } from '@dtos/genre.dto';
 
 class GenreRoute implements Routes {
    public path = '/api/v1/genres';

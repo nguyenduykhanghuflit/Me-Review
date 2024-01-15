@@ -9,18 +9,18 @@ const helmet_1 = tslib_1.__importDefault(require("helmet"));
 const hpp_1 = tslib_1.__importDefault(require("hpp"));
 const swagger_jsdoc_1 = tslib_1.__importDefault(require("swagger-jsdoc"));
 const swagger_ui_express_1 = tslib_1.__importDefault(require("swagger-ui-express"));
-const _config_1 = require("./config");
-// import initMysql from './databases/connectMySQL';
-// import { connectMySQL } from './databases/connectMySQL';
-const connectMongoDb_1 = tslib_1.__importDefault(require("./databases/connectMongoDb"));
+const env_1 = require("./config/env");
+// import initMysql from '@/databases/connectMySQL';
+// import { connectMySQL } from '@/databases/connectMySQL';
+const connectMongoDb_1 = tslib_1.__importDefault(require("./config/connectMongoDb"));
 const error_middleware_1 = tslib_1.__importDefault(require("./middlewares/error.middleware"));
-// import { stream } from './utils/logger';
-const telegramLogger_1 = require("./utils/telegramLogger");
+// import { stream } from '@utils/logger';
+const telegram_logger_utils_1 = require("./utils/telegram-logger.utils");
 class App {
     constructor(routes) {
         this.app = (0, express_1.default)();
-        this.env = _config_1.NODE_ENV || 'development';
-        this.port = _config_1.PORT || 3000;
+        this.env = env_1.NODE_ENV || 'development';
+        this.port = env_1.PORT || 3000;
         //this.connectToDatabasMySql();
         this.connectToMongoDB();
         this.initializeMiddlewares();
@@ -33,7 +33,7 @@ class App {
             // logger.info(
             //    `✅✅✅✅✅✅✅✅ App listening on the port ${this.port}✅✅✅✅✅✅✅✅`
             // );
-            telegramLogger_1.telegramLogger.sendMessage(`✅✅✅✅ App listening on the port ${this.port} ✅✅✅✅`, 'NOTICE');
+            telegram_logger_utils_1.telegramLogger.sendMessage(`✅✅✅✅ App listening on the port ${this.port} ✅✅✅✅`, 'NOTICE');
         });
     }
     getServer() {
@@ -48,7 +48,7 @@ class App {
     }
     initializeMiddlewares() {
         //this.app.use(morgan(LOG_FORMAT, { stream }));
-        this.app.use((0, cors_1.default)({ origin: _config_1.ORIGIN, credentials: _config_1.CREDENTIALS }));
+        this.app.use((0, cors_1.default)({ origin: env_1.ORIGIN, credentials: env_1.CREDENTIALS }));
         this.app.use((0, hpp_1.default)());
         this.app.use((0, helmet_1.default)());
         this.app.use((0, compression_1.default)());

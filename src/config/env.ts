@@ -1,0 +1,37 @@
+import { config } from 'dotenv';
+config({ path: `.env.${process.env.NODE_ENV || 'production'}` });
+
+export const CREDENTIALS = process.env.CREDENTIALS === 'true';
+
+export const {
+   NODE_ENV,
+   PORT,
+   DB_HOST,
+   DB_PORT,
+   DB_USER,
+   DB_PASSWORD,
+   DB_DATABASE,
+   SECRET_KEY,
+   LOG_FORMAT,
+   LOG_DIR,
+   ORIGIN,
+   TELEGRAM_TOKEN,
+   TELEGRAM_CHANNEL,
+   MONGODB_URI,
+
+   VIDEO_SERVER_1_CLOUD_NAME,
+   VIDEO_SERVER_1_API_KEY,
+   VIDEO_SERVER_1_API_SECRET,
+
+   VIDEO_SERVER_2_CLOUD_NAME,
+   VIDEO_SERVER_2_API_KEY,
+   VIDEO_SERVER_2_API_SECRET,
+
+   IMAGE_SERVER_1_CLOUD_NAME,
+   IMAGE_SERVER_1_API_KEY,
+   IMAGE_SERVER_1_API_SECRET,
+
+   IMAGE_SERVER_2_CLOUD_NAME,
+   IMAGE_SERVER_2_API_KEY,
+   IMAGE_SERVER_2_API_SECRET,
+} = process.env;

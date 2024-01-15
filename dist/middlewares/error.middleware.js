@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { logger } from '../utils/logger';
-const telegramLogger_1 = require("../utils/telegramLogger");
+// import { logger } from '@utils/logger';
+const telegram_logger_utils_1 = require("../utils/telegram-logger.utils");
 const errorMiddleware = (error, req, res, next) => {
     try {
         // const status: number = error.status || 500;
@@ -10,7 +10,7 @@ const errorMiddleware = (error, req, res, next) => {
         // logger.error(
         //    `❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`
         // );
-        telegramLogger_1.telegramLogger.sendMessage(`❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`);
+        telegram_logger_utils_1.telegramLogger.sendMessage(`❗❗❗❗❗ [${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message} ❗❗❗❗❗`);
         res.status(status).json({
             success: false,
             code: status,

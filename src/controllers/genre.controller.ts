@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import GenreService from '@services/genre.service';
-import { IGenre } from '@/interfaces/genre.interface';
-import { CreateGenreDto } from '@/dtos/genre.dto';
+import GenreRepository from '@/databases/repositories/genre.repositories';
+import { IGenre } from '@interfaces/genre.interface';
+import { CreateGenreDto } from '@dtos/genre.dto';
 
 class GenresController {
-   private genreService = new GenreService();
+   private genreRepository = new GenreRepository();
 
    public get = async (req: Request, res: Response, next: NextFunction) => {
       try {
-         const data: IGenre[] = await this.genreService.Get();
+         const data: IGenre[] = await this.genreRepository.Get();
 
          return res.status(200).json({
             success: true,
@@ -26,7 +26,7 @@ class GenresController {
 
          body.updatedAt = new Date();
          body.updatedBy = 'DEV';
-         const data: IGenre = await this.genreService.Create(body);
+         const data: IGenre = await this.genreRepository.Create(body);
 
          return res.status(200).json({
             success: true,

@@ -1,15 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudinary_service_1 = require("../services/cloudinary.service");
-const fs = require('fs');
-const axios = require('axios');
+const upload_service_1 = require("../services/upload.service");
 class UploadController {
     constructor() {
         this.videoService = new cloudinary_service_1.VideoService();
+        this.uploadService = new upload_service_1.UploadService();
         this.uploadVideoCloudinary = async (req, res, next) => {
             try {
                 const file = req.file;
-                const videoUrl = await this.videoService.UploadVideoCloudinary(file);
+                const { server } = req.body;
+                const videoUrl = await this.videoService.UploadVideoCloudinary(file, server);
                 res.json({ url: videoUrl });
             }
             catch (error) {
@@ -17,21 +18,36 @@ class UploadController {
                 res.status(500).json({ message: 'Internal server error' });
             }
         };
-        this.streamVideo = async (req, res, next) => {
-            const cloudinaryUrl = 'https://res.cloudinary.com/dxshs8qrh/video/upload/v1703355220/video-uploads/y8nejj4obrobh3tdwj1c.mp4?fbclid=IwAR1SzOIcZn2dTT75s4UVWIrqOymGg7Scz_BNJGSJ0vx1LJrfVhJLS78Y2KM';
-            res.setHeader('content-type', 'video/mp4');
-            axios({
-                url: cloudinaryUrl,
-                method: 'GET',
-                responseType: 'stream',
-            })
-                .then((response) => {
-                response.data.pipe(res);
-            })
-                .catch((error) => {
-                console.error('Error streaming video:', error);
-                res.status(500).send('Internal server error');
-            });
+        this.uploadImageFromUrl = async (req, res, next) => {
+            const { imageUrl } = req.query;
+            try {
+                var result = await this.uploadService.uploadImageFromUrlToCloudinary(imageUrl);
+                return res.status(200).json({
+                    success: true,
+                    code: 200,
+                    data: { imageUrl: result.secure_url },
+                    message: 'Upload success',
+                });
+            }
+            catch (error) {
+                return res.status(200).json({
+                    success: true,
+                    code: 500,
+                    data: null,
+                    message: 'Server error',
+                });
+            }
+        };
+        this.uploadVideoFromYtbUrl = async (req, res, next) => {
+            try {
+                const { ytbUrl } = req.query;
+                var result = await this.uploadService.uploadVideoFromYtbUrlToCloudinary(ytbUrl);
+                res.json({ result });
+            }
+            catch (error) {
+                console.error(error);
+                res.status(500).json({ message: 'Internal server error', error });
+            }
         };
     }
 }

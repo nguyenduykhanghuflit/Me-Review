@@ -18,7 +18,16 @@ class UploadRoute implements Routes {
          upload.single('video'),
          this.uploadController.uploadVideoCloudinary
       );
-      this.router.get(`${this.path}/stream`, this.uploadController.streamVideo);
+
+      this.router.get(
+         `${this.path}/image-url`,
+         this.uploadController.uploadImageFromUrl
+      );
+
+      this.router.get(
+         `${this.path}/video-ytb-url`,
+         this.uploadController.uploadVideoFromYtbUrl
+      );
    }
 }
 

@@ -4,7 +4,7 @@ const tslib_1 = require("tslib");
 const express_1 = require("express");
 const genre_controller_1 = tslib_1.__importDefault(require("../controllers/genre.controller"));
 const validation_middleware_1 = tslib_1.__importDefault(require("../middlewares/validation.middleware"));
-const genre_dto_1 = require("../dtos/genre.dto");
+const genre_dto_1 = require("../core/dtos/genre.dto");
 class GenreRoute {
     constructor() {
         this.path = '/api/v1/genres';

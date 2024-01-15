@@ -5,13 +5,12 @@ const app_1 = tslib_1.__importDefault(require("./app"));
 // import AuthRoute from './routes/auth.route';
 const index_route_1 = tslib_1.__importDefault(require("./routes/index.route"));
 // import UsersRoute from './routes/users.route';
-const validateEnv_1 = tslib_1.__importDefault(require("./utils/validateEnv"));
+const validate_env_1 = tslib_1.__importDefault(require("./utils/validate-env"));
 const categories_route_1 = tslib_1.__importDefault(require("./routes/categories.route"));
 const genre_route_1 = tslib_1.__importDefault(require("./routes/genre.route"));
 const movie_router_1 = tslib_1.__importDefault(require("./routes/movie.router"));
 const upload_route_1 = tslib_1.__importDefault(require("./routes/upload.route"));
-(0, validateEnv_1.default)();
-//tại sao tại tại sao
+(0, validate_env_1.default)();
 const app = new app_1.default([
     new index_route_1.default(),
     // new UsersRoute(),

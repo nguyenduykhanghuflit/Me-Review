@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1" />
+
+      <!-- Bootstrap CSS -->
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+         crossorigin="anonymous" />
+
+      <title>CREATE FILM</title>
+   </head>
+   <body>
+      <form class="container mt-4">
+         <div class="row container">
+            <div class="mb-3 col-md-4">
+               <label
+                  for="movieName"
+                  class="form-label"
+                  >Tên phim</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="movieName" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="title"
+                  class="form-label"
+                  >Title</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="title" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="description"
+                  class="form-label"
+                  >Description</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="description" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="director"
+                  class="form-label"
+                  >Director</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="director" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="productionYear"
+                  class="form-label"
+                  >ProductionYear</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="productionYear" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="country"
+                  class="form-label"
+                  >Country</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="country" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="actor"
+                  class="form-label"
+                  >Actor</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="actor" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <form
+                  id="uploadForm"
+                  enctype="multipart/form-data">
+                  <input
+                     id="video"
+                     type="file"
+                     name="video"
+                     accept="video/*"
+                     required />
+               </form>
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="poster"
+                  class="form-label"
+                  >Poster</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="poster" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="backdrop"
+                  class="form-label"
+                  >Backdrop</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="backdrop" />
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="categories"
+                  class="form-label"
+                  >Categories</label
+               >
+               <select
+                  class="form-select"
+                  multiple
+                  id="categories"></select>
+            </div>
+            <div class="mb-3 col-md-4">
+               <label
+                  for="genres"
+                  class="form-label"
+                  >Genres</label
+               >
+               <select
+                  class="form-select"
+                  multiple
+                  id="genres"></select>
+            </div>
+            <button
+               id="submit"
+               type="button"
+               class="btn btn-primary">
+               Submit
+            </button>
+         </div>
+      </form>
+
+      <script
+         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+         crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+         $(document).ready(function () {
+            // Bước 1: Gọi API để lấy danh sách categories
+            $.ajax({
+               url: 'https://me-review.vercel.app/api/v1/categories',
+               type: 'GET',
+               dataType: 'json',
+               success: function (response) {
+                  if (response.success) {
+                     var categories = response.data;
+
+                     // Đổ dữ liệu vào select box categories
+                     var categoriesSelect = $('#categories');
+                     $.each(categories, function (index, category) {
+                        categoriesSelect.append(
+                           $('<option>', {
+                              value: category._id,
+                              text: category.name,
+                           })
+                        );
+                     });
+                  } else {
+                     console.log(response.message);
+                  }
+               },
+               error: function (xhr, status, error) {
+                  console.log(error);
+               },
+            });
+
+            // Bước 2: Gọi API để lấy danh sách genres
+            $.ajax({
+               url: 'https://me-review.vercel.app/api/v1/genres',
+               type: 'GET',
+               dataType: 'json',
+               success: function (response) {
+                  if (response.success) {
+                     var genres = response.data;
+
+                     // Đổ dữ liệu vào select box genres
+                     var genresSelect = $('#genres');
+                     $.each(genres, function (index, genre) {
+                        genresSelect.append(
+                           $('<option>', {
+                              value: genre._id,
+                              text: genre.name,
+                           })
+                        );
+                     });
+                  } else {
+                     console.log(response.message);
+                  }
+               },
+               error: function (xhr, status, error) {
+                  console.log(error);
+               },
+            });
+         });
+
+         $('#submit').click(async function (event) {
+            const formData = new FormData();
+
+            formData.append('server', 'SERVER_1');
+            formData.append('video', $('#video')[0].files[0]);
+            try {
+               const response = await fetch(
+                  'http://localhost:8080/api/v1/upload/cloudinary',
+                  {
+                     method: 'POST',
+                     body: formData,
+                  }
+               );
+
+               if (response.ok) {
+                  const data = await response.json();
+                  const videoUrl = data.url;
+
+                  var movieName = $('#movieName').val();
+                  var title = $('#title').val();
+                  var description = $('#description').val();
+                  var director = $('#director').val();
+                  var productionYear = $('#productionYear').val();
+                  var country = $('#country').val();
+                  var actor = $('#actor').val();
+                  var poster = $('#poster').val();
+                  var backdrop = $('#backdrop').val();
+                  var categories = $('#categories').val();
+                  var genres = $('#genres').val();
+
+                  const req = {
+                     categories: categories,
+                     genres: genres,
+                     movieUrls: {
+                        url: videoUrl,
+                        server: 1,
+                     },
+                     movieName,
+                     title,
+                     description,
+                     director,
+                     productionYear,
+                     country,
+                     actor,
+                     isPublished: true,
+                     imageUrls: [
+                        {
+                           url: poster,
+                           type: 'poster',
+                        },
+                        {
+                           url: backdrop,
+                           type: 'backdrop',
+                        },
+                     ],
+                  };
+
+                  $.ajax({
+                     url: 'https://me-review.vercel.app/api/v1/movies',
+                     type: 'POST',
+                     dataType: 'json',
+                     contentType: 'application/json',
+                     data: JSON.stringify(req),
+                     success: function (response) {
+                        if (response.success) {
+                           alert('Create thành công');
+                           console.log('API POST success');
+                        } else {
+                           console.log(response.message);
+                        }
+                     },
+                     error: function (xhr, status, error) {
+                        console.log(error);
+                     },
+                  });
+               }
+            } catch (error) {
+               console.error(error);
+            }
+         });
+      </script>
+   </body>
+</html>

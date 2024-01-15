@@ -13,7 +13,8 @@ class UploadRoute {
     }
     initializeRoutes() {
         this.router.post(`${this.path}/cloudinary`, cloudinary_service_1.upload.single('video'), this.uploadController.uploadVideoCloudinary);
-        this.router.get(`${this.path}/stream`, this.uploadController.streamVideo);
+        this.router.get(`${this.path}/image-url`, this.uploadController.uploadImageFromUrl);
+        this.router.get(`${this.path}/video-ytb-url`, this.uploadController.uploadVideoFromYtbUrl);
     }
 }
 exports.default = UploadRoute;

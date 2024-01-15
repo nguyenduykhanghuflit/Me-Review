@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import CategoryService from '@services/category.service';
-import { ICategory } from '@/interfaces/categories.interface';
-import { CreateCategoryDto } from '@/dtos/categories.dto';
+import CatetoryRepository from '@/databases/repositories/category.repositories';
+import { ICategory } from '@interfaces/categories.interface';
+import { CreateCategoryDto } from '@dtos/categories.dto';
 
 class CategoriesController {
-   private categoryService = new CategoryService();
+   private categoryRepository = new CatetoryRepository();
 
    public getCategories = async (
       req: Request,
@@ -14,7 +14,8 @@ class CategoriesController {
       try {
          // const userId = Number(req.params.id);
          // const userData: CreateUserDto = req.body;
-         const findAllCategory: ICategory[] = await this.categoryService.Get();
+         const findAllCategory: ICategory[] =
+            await this.categoryRepository.Get();
 
          return res.status(200).json({
             success: true,
@@ -34,7 +35,7 @@ class CategoriesController {
       try {
          // const userId = Number(req.params.id);
          const body: CreateCategoryDto = req.body;
-         const data: ICategory = await this.categoryService.Create(body);
+         const data: ICategory = await this.categoryRepository.Create(body);
 
          return res.status(200).json({
             success: true,

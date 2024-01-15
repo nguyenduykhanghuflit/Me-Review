@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const category_service_1 = tslib_1.__importDefault(require("../services/category.service"));
+const category_repositories_1 = tslib_1.__importDefault(require("../databases/repositories/category.repositories"));
 class CategoriesController {
     constructor() {
-        this.categoryService = new category_service_1.default();
+        this.categoryRepository = new category_repositories_1.default();
         this.getCategories = async (req, res, next) => {
             try {
                 // const userId = Number(req.params.id);
                 // const userData: CreateUserDto = req.body;
-                const findAllCategory = await this.categoryService.Get();
+                const findAllCategory = await this.categoryRepository.Get();
                 return res.status(200).json({
                     success: true,
                     code: 200,
@@ -25,7 +25,7 @@ class CategoriesController {
             try {
                 // const userId = Number(req.params.id);
                 const body = req.body;
-                const data = await this.categoryService.Create(body);
+                const data = await this.categoryRepository.Create(body);
                 return res.status(200).json({
                     success: true,
                     code: 200,

@@ -1,11 +1,11 @@
 // import { compare, hash } from 'bcrypt';
 // import { sign } from 'jsonwebtoken';
 // import { SECRET_KEY } from '../config';
-// import DB from '../databases/connectMySQL';
-// import { CreateUserDto } from '../dtos/users.dto';
-// import { HttpException } from '../exceptions/HttpException';
-// import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
-// import { User } from '../interfaces/users.interface';
+// import DB from '@/databases/connectMySQL';
+// import { CreateUserDto } from '../core/dtos/users.dto';
+// import { HttpException } from '@exceptions/HttpException';
+// import { DataStoredInToken, TokenData } from '../core/interfaces/auth.interface';
+// import { User } from '../core/interfaces/users.interface';
 // import { isEmpty } from '../utils/util';
 // class AuthService {
 //    public users = DB.Users;
