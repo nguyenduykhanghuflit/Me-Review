@@ -45,7 +45,7 @@ class UploadController {
          return res.status(200).json({
             success: true,
             code: 500,
-            data: null,
+            data: error,
             message: 'Server error',
          });
       }
